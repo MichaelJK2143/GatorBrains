@@ -10,22 +10,6 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 export function HomePage() {
   return (
     (<div key="1" className="items-center justify-center gap-2 bg-blue-gray-500">
-      <section className="w-100 py-6 md:py-12 lg:py-16 bg-blue-gray-800">
-        <div className="container gap-4 px-4 md:px-6">
-          <div className="space-y-3 text-center w-100">
-            <h2
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-blue-800">
-              About Gator Brains
-            </h2>
-            <p
-              className="text-blue-600" style={{color:"red"}}>
-              Gator Brains is the tral hub for all things related to the University of Florida. From news and events
-              to research and innovation, we cover it all. Dive into the world of the Gators and stay informed with
-              Gator Brains.
-            </p>
-          </div>
-        </div>
-      </section>
       <div
         className="w-full min-h-[400px] items-center justify-center py-6 gap-4 md:gap-8 lg:py-12 flex">
         <Card className="w-full max-w-sm bg-blue-100">

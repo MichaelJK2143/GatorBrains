@@ -1,35 +1,46 @@
 "use client"
 
-import { HomePage } from "@/components/component/home-page"
-import "../css/output.css"
-import "../css/colors.css"
-import { HomeTextSection } from "@/components/home-elements/home-text-sections"
+import "@/css/output.css"
+import "@/css/colors.json"
+import { TextSection } from "@/components/common/text-sections"
+import { LinkBar } from "@/components/common/link-bar"
+import { MainDivStyle } from "@/css/common"
+
+import { Card } from "@/components/common/card"
+import { NameForm } from "@/components/common/form"
+
 
 export default function Home() {
     return (
-        <div style={container}>
-            <div style={test}>
-                <HomeTextSection>Gator Stuff Description</HomeTextSection>
-            </div>
-        </div>
+        <div>
+            <heading>
+                <LinkBar links={["Find People", "Around Me", "About"]}/>
+            </heading>
+            <main>
+                <div style={MainDivStyle}>
+                    <TextSection heading="Gator Brains">
+                        <div>
+                            <p>Connect and conquer your courses with Gator Brain!</p>
+                            <p>The ultimate study buddy app designed exclusively for the University of Florida community.</p>
+                            <p>Enhance your academic journey and ace those exams together!</p>
+                        </div>
+                    </TextSection>
+                    <div style={test}>
+                        <Card>
+                            <NameForm/>
+                        </Card>
+                        <Card>
+                            
+                        </Card>
+                    </div>   
+                </div>
+            </main>
+        </div>  
     )
 }
 
 const test = {
-    position:"relative",
-    top:window.innerHeight*0.1
-}
+    display:"flex",
+    flexDirection:"row",
 
-const container = {
-    left:0,
-    right:0,
-  
-    marginLeft: "auto",
-    marginRight: "auto",
-  
-    position: "absolute",
-    width: "80%",
-  
-    background: "white",
-    textAlign: "center"
-  }
+}
