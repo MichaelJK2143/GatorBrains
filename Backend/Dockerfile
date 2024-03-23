@@ -1,4 +1,4 @@
-#Base image with python installed
+# Base image with python installed
 FROM python:3-alpine3.18
 
 # Setup the working directory where files are
