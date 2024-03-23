@@ -7,12 +7,13 @@ db = SQLAlchemy()
 
 
 class Course(db.Model):
-     name = db.Column(db.String(80), primary_key=True)
+     id = db.Column(db.Integer, primary_key=True)
+     name = db.Column(db.String(80))
      course_code = db.Column(db.String(8))
      professor = db.Column(db.String(40))
      
      def __repr___(self):
-          return '<course %r>' % self.name
+          return '<course %r>' % self.course_code
 
      
 class StudySesh(db.Model):
@@ -30,6 +31,7 @@ class User(db.Model):
      username = db.Column(db.String(80))
      password = db.Column(db.String(80))
      email = db.Column(db.String(80)) # try to figure this out eventually
+     schedule = db.Column(ARRAY(Course))
      
 
      def __repr__(self):
