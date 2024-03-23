@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from models import User
-from app import db
+from models import db
 
 
 def make_dummy_users():

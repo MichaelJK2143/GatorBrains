@@ -1,10 +1,13 @@
 from datetime import datetime, timedelta
 from sqlalchemy import ARRAY
+from flask_sqlalchemy import SQLAlchemy
 
-from app import db
 
-class course():
-     name = db.Column(db.String(80))
+db = SQLAlchemy()
+
+
+class Course(db.Model):
+     name = db.Column(db.String(80), primary_key=True)
      course_code = db.Column(db.String(8))
      professor = db.Column(db.String(40))
      
@@ -12,11 +15,11 @@ class course():
           return '<course %r>' % self.name
 
      
-class StudySesh():
+class StudySesh(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      start_time = db.Column(db.DateTime, default=datetime.now()) # time it was created
      departure_time = db.Column(db.DateTime, default=lambda: datetime.now() + timedelta(hours=1)) # default to hour later from created
-     course = db.Column(db.course)
+     course = db.Column(db.String(8))
 
      def __repr___(self):
           return '<id %r>' % self.course_name
@@ -27,7 +30,6 @@ class User(db.Model):
      username = db.Column(db.String(80))
      password = db.Column(db.String(80))
      email = db.Column(db.String(80)) # try to figure this out eventually
-     schedule = db.Column(ARRAY(db.Course))
      
 
      def __repr__(self):
