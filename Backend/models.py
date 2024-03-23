@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 import pytz   # pip install pytz
 
-db = SQLAlchemy()
+from models import db
 
 
 class User(db.Model):
@@ -10,7 +10,7 @@ class User(db.Model):
      name = db.Column(db.String(80))
      username = db.Column(db.String(80))
      password = db.Column(db.String(80))
-     email = db.Column() # try to figure this out eventually
+     email = db.Column(db.String(80)) # try to figure this out eventually
      #schedule = 
      
 

@@ -2,13 +2,11 @@ from flask import jsonify  # request
 from flask_sqlalchemy import SQLAlchemy
 from models import User
 
+from app import db
+
 
 def configure_routes(app):
     @app.route('/users')
     def run():
-        users = [user.id for user in User.query.all()]
-<<<<<<< HEAD
-        return jsonify({"users": users})
-=======
+        users = [{"id": user.id, "name": user.name, "password": user.password, "email": user.email} for user in User.query.all()]
         return jsonify({"users": users})  # type: ignore
->>>>>>> 1016a53dd364cea1295b0be35654d506fb076cb6

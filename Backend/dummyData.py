@@ -5,7 +5,7 @@ from models import db
 
 def make_dummy_users():
     for i in range(5):
-        user = User()
+        user = User(name="bob", username="bob", password="bob", email="bob@bob.com")
         db.session.add(user)
 
     db.session.commit()
