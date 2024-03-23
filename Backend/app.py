@@ -1,8 +1,9 @@
 from flask import Flask
-from models import db
 from routes import configure_routes
 from dummyData import make_dummy_users
+from flask_sqlalchemy import SQLAlchemy
 
+db SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
