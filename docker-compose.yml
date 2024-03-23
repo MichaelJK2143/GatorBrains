@@ -1,0 +1,9 @@
+version: "3.9"
+
+name: gator_brains
+
+services:
+  api:
+    build: ./Backend
+    ports:
+      - 3001:3000

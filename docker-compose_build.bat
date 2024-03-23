@@ -1,0 +1,3 @@
+docker-compose build
+
+PAUSE
