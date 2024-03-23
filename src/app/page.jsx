@@ -1,8 +1,8 @@
-
-
+import { HomePage } from "@/components/component/home-page"
+import "../css/output.css"
 
 export default function Home() {
     return (
-        <h1>Hello</h1>
+        <HomePage/>
     )
 }
