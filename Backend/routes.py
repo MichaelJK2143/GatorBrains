@@ -1,5 +1,4 @@
 from flask import jsonify  # request
-from flask_sqlalchemy import SQLAlchemy
 from models import User
 
 from app import db

@@ -1,8 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
-import pytz   # pip install pytz
 
-from models import db
+from app import db
 
 
 class User(db.Model):
