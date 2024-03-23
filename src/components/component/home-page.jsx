@@ -9,30 +9,17 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 
 export function HomePage() {
   return (
-    (<div key="1" className="flex flex-col gap-2 bg-blue-gray-500">
-      <section className="w-full py-6 md:py-12 lg:py-16 bg-blue-gray-800">
-        <div
-          className="container flex flex-col items-center justify-center gap-4 px-4 text-center md:px-6">
-          <div className="space-y-3">
-            <h1
-              className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-blue-800">Gator Brains</h1>
-            <p
-              className="mx-auto max-w-[600px] text-blue-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              The home for all things related to the University of Florida.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section className="w-full py-6 md:py-12 lg:py-16 bg-blue-gray-800">
-        <div className="container flex flex-col gap-4 px-4 md:px-6">
-          <div className="space-y-3 text-center">
+    (<div key="1" className="items-center justify-center gap-2 bg-blue-gray-500">
+      <section className="w-100 py-6 md:py-12 lg:py-16 bg-blue-gray-800">
+        <div className="container gap-4 px-4 md:px-6">
+          <div className="space-y-3 text-center w-100">
             <h2
               className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-blue-800">
               About Gator Brains
             </h2>
             <p
-              className="mx-auto max-w-3xl text-blue-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Gator Brains is the central hub for all things related to the University of Florida. From news and events
+              className="text-blue-600" style={{color:"red"}}>
+              Gator Brains is the tral hub for all things related to the University of Florida. From news and events
               to research and innovation, we cover it all. Dive into the world of the Gators and stay informed with
               Gator Brains.
             </p>
