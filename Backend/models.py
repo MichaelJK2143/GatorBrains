@@ -9,6 +9,7 @@ db = SQLAlchemy()
 class Course(db.Model):
      name = db.Column(db.String(80), primary_key=True)
      course_code = db.Column(db.String(8))
+     # omg, this could also work if somebody says like MCAT or smthg
      professor = db.Column(db.String(40))
      
      def __repr___(self):
@@ -21,6 +22,10 @@ class StudySesh(db.Model):
      departure_time = db.Column(db.DateTime, default=lambda: datetime.now() + timedelta(hours=1)) # default to hour later from created
      course = db.Column(db.String(8))
 
+     def __init__(self, duration, course):
+          self.departure_time = self.start_time + datetime.timedelta(hours=duration)
+          self.course = course
+
      def __repr___(self):
           return '<id %r>' % self.course_name
      
@@ -29,7 +34,7 @@ class User(db.Model):
      name = db.Column(db.String(80))
      username = db.Column(db.String(80))
      password = db.Column(db.String(80))
-     email = db.Column(db.String(80)) # try to figure this out eventually
+     email = db.Column(db.String(80)) # figure this out eventually
      
 
      def __repr__(self):
