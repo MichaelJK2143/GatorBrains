@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+import pytz
 from sqlalchemy import ARRAY
 from flask_sqlalchemy import SQLAlchemy
 
@@ -17,8 +18,11 @@ class Course(db.Model):
 """
      
 class StudySesh(db.Model):
+     time = datetime.now()
+     time_est = time.astimezone(pytz.timezone('US/Eastern'))
+
      id = db.Column(db.Integer, primary_key=True)
-     start_time = db.Column(db.DateTime, default=datetime.now()) # time it was created
+     start_time = db.Column(db.DateTime, default=time_est) # time it was created
      course = db.Column(db.String(8))
      members = db.Column(db.Integer)
      users = db.relationship('User', backref='study_sesh', lazy=True)
@@ -32,6 +36,7 @@ class StudySesh(db.Model):
           self.y = y
           self.floor = floor
           self.members = members
+
 
      def __repr__(self):
           return '<id %r>' % self.id

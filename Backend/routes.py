@@ -10,7 +10,7 @@ def configure_routes(app):
 
     @app.route('/users')
     def getUsers():
-        users = [{"id": user.id, "name": user.name, "password": user.password, "email": user.email} for user in User.query.all()]
+        users = [{"id": user.id, "password": user.password} for user in User.query.all()]
         return jsonify({"users": users})  # type: ignore
     
     # making an account
@@ -18,10 +18,13 @@ def configure_routes(app):
     def createAccount():
         try:
             data = request.get_json()
-            new_user = User(name=data['name'], username=data['username'], password=data['password'], email=data['email'])
+            new_user = User(username=data['username'], password=data['password'])
             db.session.add(new_user)
             db.session.commit()
-            return make_response(jsonify({'message': 'New user created! Time to get on the grindddddd'}), 201)
+            response = {
+                'id': new_user.id,
+                'message': 'New user created! Time to get on the grindddddd'}
+            return jsonify(response), 201
         except:
             return make_response(jsonify({'message': 'error creating user'}), 500)
 
@@ -41,7 +44,7 @@ def configure_routes(app):
         data = request.get_json()
         sesh = StudySesh.query.filter_by(floor=data['floor']).first()
         if(sesh):
-            sessions = [{'Course': session.course, 'Started': session.start_time, 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(floor=data['floor']).all()]
+            sessions = [{'Course': session.course, 'Started': session.start_time.strftime("%H:%M:%S"), 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(floor=data['floor']).all()]
             return jsonify({'Sessions': sessions})
         else:
             return make_response(jsonify({'message': 'For some reason, there are no study sessions on this floor. Crazy.'}), 201)
@@ -49,11 +52,11 @@ def configure_routes(app):
 
     # get all current study sessions by course code
     @app.route('/currentCourseSessions', methods=['GET'])
-    def currentSessionsFloor():
+    def currentCourseSessions():
         data = request.get_json()
         sesh = StudySesh.query.filter_by(course=data['course']).first()
         if(sesh):
-            sessions = [{'Course': session.course, 'Started': session.start_time, 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(course=data['course']).all()]
+            sessions = [{'Course': session.course, 'Started': session.start_time.strftime("%H:%M:%S"), 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(course=data['course']).all()]
             return jsonify({'Sessions': sessions})
         else:
             return make_response(jsonify({'message': 'No study sessions for that class yet :0'}), 201)
