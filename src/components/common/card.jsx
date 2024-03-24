@@ -2,18 +2,22 @@ import colors from "@/css/colors.json"
 
 export const Card = ({ children }) => {
     return (
-        <div className= "rounded-lg" style={CardStyle}>
+        <div className= "rounded-lg" style={Tstyle}>
             {children}
         </div>
     )
 }
 
-const CardStyle = {
-    flex: "1 1 auto",
-    borderWidth:"2px",
-    borderColor:colors["gator_blue"],
-    backgroundColor:colors["gator_blue"],
-    color:"#ffffff",
-    padding:"30px",
-    margin:"30px",
-}
+const Tstyle= {
+        backgroundColor: 'lightblue',
+        borderRadius: '10px',
+        maxHeight: '400px',
+        minHeight: '100px',
+        minWidth: '200px', // Minimum width to ensure it grows sideways
+        flexGrow: 1, // Allow it to grow to fill the screen sideways
+        margin: '10px',
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }

@@ -1,3 +1,6 @@
+"use client"
+
+import React, { useState } from 'react';
 
 export const Title = () => {
   const GatorTitle = {
@@ -24,22 +27,29 @@ export const User= () =>{
     'border' : '3px solid black',
     'border-radius' :'30px',
     'background-color':"lightgray",
-    'height':'400px'
+    'height':'700px'
   }
   const UserTitle ={
-    'fontSize':'20px',
+    'margin':'1em 0',
+    'fontSize':'35px',
+    'text-align':'center',
+    'font-weight':'bold',
     'color' : 'red'
   } 
   const UserName ={
-    'fontSize' : '15px',
-    'padding' : '10px'
+    'border' : '1px solid black',
+    'border-radius': '10px',
+    'text-align':'center',
+    'fontSize' : '20px',
+    'padding' : '20px',
+    'margin': '3% 10% 3% 10%'
   }
 
   return (
   <div style={Userlist}>
     <h2 style ={UserTitle}>Active User</h2>
     <ul>
-      <li style={UserName}>User1</li>
+      <li style={UserName}>User0</li>
       <li style={UserName}>User2</li>
       <li style={UserName}>User3</li>
       <li style={UserName}>User4</li>
@@ -50,6 +60,23 @@ export const User= () =>{
 }
 
 export const MapPlaceholder = () => {
+  const [borderCoordinates, setBorderCoordinates] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
+
+  const handleMouseMove = (event) => {
+    const x = event.clientX;
+    const y = event.clientY;
+    setMousePosition({ x, y });
+    const rect = event.currentTarget.getBoundingClientRect();
+    const coordinates = {
+      top: rect.top,
+      right: rect.right,
+      bottom: rect.bottom,
+      left: rect.left
+    };
+    setBorderCoordinates(coordinates);
+  };
+
   const h1_style ={
     'fontSize':'25px',
     'margin' : 'auto'
@@ -59,15 +86,19 @@ export const MapPlaceholder = () => {
     'border-radius' :'30px',
     'width':'90%',
     'background-color':'lightgrey',
-    'height':'400px'
+    'height':'700px'
 
   }
 
   return (
-    <div style ={MapBorder}>
-        <h1 style={h1_style}> hi </h1>
-        <img src="/src/images/1st-Floor-Map-Marston.png" alt="Marston basement map"></img>
-        <p>"nim dolor nec est. Cras vel suscipit lectus. Fusce nec metus at tortor sodales lobortis. Maecenas tincidunt leo at magna ultricies, at laoreet velit lobortis. Donec lacinia eros et posuere sollicitudin. Integer tempus, nulla eget interdum varius, mauris arcu pellentesque dolor, nec tempor odio eros id lorem. Integer sit amet aliquet nulla. Sed tempus, odio id pharetra faucibus, metus sapien egestas libero, et elementum risus elit eget purus. Duis nec mauris at magna bibendum viverra."</p>
+    <div style={MapBorder} onMouseMove={handleMouseMove}>
+      <img src="https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png" style={{ maxWidth: '90%', maxHeight: '90%', margin: 'auto', 'margin-top': '7%' }}></img>
+      <p>Border Top: {borderCoordinates?.top}</p>
+      <p>Border Right: {borderCoordinates?.right}</p>
+      <p>Border Bottom: {borderCoordinates?.bottom}</p>
+      <p>Border Left: {borderCoordinates?.left}</p>
+      <p>Mouse X: {mousePosition.x}</p>
+      <p>Mouse Y: {mousePosition.y}</p>
     </div>
   )
 }

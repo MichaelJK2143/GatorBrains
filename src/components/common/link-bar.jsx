@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Gator } from "./gator-logo"
-import { LinkBreak1Icon } from "@radix-ui/react-icons"
 
 export function LinkBar({ links = ["Cats", "About", "Contact"], className="h-18 items-center" }) {
     return (

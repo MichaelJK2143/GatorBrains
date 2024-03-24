@@ -8,14 +8,15 @@ import { MainDivStyle } from "@/css/common"
 
 import { Card } from "@/components/common/card"
 import { NameForm } from "@/components/common/form"
+import { useState } from "react"
+import {ImageWithOptions } from "@/components/common/image-options"
+import { WORK } from "@/components/common/image-options"
 
 
 export default function Home() {
     return (
         <div>
-            <heading>
-                <LinkBar links={["Find People", "Around Me", "About"]}/>
-            </heading>
+            <LinkBar links={["Find People", "Around Me", "About"]}/>
             <main>
                 <div style={MainDivStyle}>
                     <TextSection heading="Gator Brains">
@@ -25,14 +26,7 @@ export default function Home() {
                             <p>Enhance your academic journey and ace those exams together!</p>
                         </div>
                     </TextSection>
-                    <div style={test}>
-                        <Card>
-                            <NameForm/>
-                        </Card>
-                        <Card>
-                            
-                        </Card>
-                    </div>   
+                    <WORK/>
                 </div>
             </main>
         </div>  
@@ -42,5 +36,4 @@ export default function Home() {
 const test = {
     display:"flex",
     flexDirection:"row",
-
 }
