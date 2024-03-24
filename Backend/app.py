@@ -1,4 +1,6 @@
 from flask import Flask
+from flask_cors import CORS
+
 from routes import configure_routes
 from dummyData import make_dummy_users
 from models import db
@@ -7,6 +9,8 @@ from models import db
 
 def create_app():
     app = Flask(__name__)
+    
+    CORS(app, origins='http://localhost:3000', methods=['GET', 'POST', 'PUT'])
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////app/users.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)

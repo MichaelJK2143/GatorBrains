@@ -18,13 +18,13 @@ def configure_routes(app):
     # making an account
     @app.route('/createAccount', methods=['POST'])
     def createAccount():
-        try:
+        #try:
             data = request.get_json()
             new_user = User(name=data['name'], username=data['username'], password=data['password'], email=data['email'])
             db.session.add(new_user)
             db.session.commit()
             return make_response(jsonify({'message': 'New user created! Time to get on the grindddddd'}), 201)
-        except:
+        #except:
             return make_response(jsonify({'message': 'error creating user'}), 500)
     
     """
