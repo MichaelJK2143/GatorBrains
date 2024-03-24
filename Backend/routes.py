@@ -1,5 +1,4 @@
 from flask import jsonify, request, make_response
-
 from models import db
 from models import User, StudySesh
 from flask_sqlalchemy import SQLAlchemy
@@ -41,15 +40,27 @@ def configure_routes(app):
     @app.route('/currentFloorSessions', methods=['GET'])
     def currentSessions():
         data = request.get_json()
-        sessions = [{'Course': session.course, 'Started': session.start_time, 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(floor=data['floor']).all()]
-        return jsonify({'Sessions': sessions})
+        sesh = StudySesh.query.filter_by(floor=data['floor']).first()
+        if(sesh):
+            sessions = [{'Course': session.course, 'Started': session.start_time, 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(floor=data['floor']).all()]
+            return jsonify({'Sessions': sessions})
+        else:
+            return make_response(jsonify({'message': 'For some reason, there are no study sessions on this floor. Crazy.'}), 201)
     
 
     # get all current study sessions by course code
-    # remember to give professor as well
-
+    @app.route('/currentCourseSessions', methods=['GET'])
+    def currentSessions():
+        data = request.get_json()
+        sesh = StudySesh.query.filter_by(course=data['course']).first()
+        if(sesh):
+            sessions = [{'Course': session.course, 'Started': session.start_time, 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(course=data['course']).all()]
+            return jsonify({'Sessions': sessions})
+        else:
+            return make_response(jsonify({'message': 'No study sessions for that class yet :0'}), 201)
 
     # make a new sesh
+    # make a notice that the course inputted needs to be the course code
     @app.route('/createNewStudySession', methods=['POST'])
     def createNewStudySesh():
         try:
@@ -77,14 +88,15 @@ def configure_routes(app):
             sesh.users.append(user.id)
             db.session.commit()
             return make_response(jsonify({'message': "You've joined the session! Time to get on that grind"}, 201))
-        return(make_response(jsonify({'message': 'Session not found :('})))
+        return(make_response(jsonify({'message': 'Session or user not found :('})), 500)
 
 
     # leave the session. deletes if no members in session anymore
     @app.route('/leaveSession', methods=['GET'])
-    def leaveSession(user_id, session_id):
-        sesh = StudySesh.query.filter_by(id=session_id).first()
-        user = User.query.filter_by(id=user_id).first()
+    def leaveSession():
+        data = request.get_json()
+        sesh = StudySesh.query.filter_by(id=data['session_id']).first()
+        user = User.query.filter_by(id=data['user_id']).first()
         if(sesh and user):
             data=request.get_json()
             sesh.members -= 1
@@ -93,7 +105,7 @@ def configure_routes(app):
                 db.session.delete(sesh)
             db.session.commit()
             return make_response(jsonify({'message': "You've left the session! Was it hard work or hardly working?"}, 201))
-        return(make_response(jsonify({'message': 'Session or user not found :('})))
+        return(make_response(jsonify({'message': 'Session or user not found :('})), 500)
 
 
     """
@@ -107,6 +119,6 @@ def configure_routes(app):
                 db.session.commit()
                 return make_response(jsonify({'message': 'course sucessfully added'}), 201)
             return make_response(jsonify({'message': 'course not found'}), 201)
-        return make_response(jsonify({'message': 'user not found'}), 201)
-        return make_response(jsonify({'message': 'error adding course'}), 500)
-    """    
+        else:
+            return make_response(jsonify({'message': 'user not found'}), 201)
+    """
