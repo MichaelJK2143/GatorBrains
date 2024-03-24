@@ -1,6 +1,5 @@
 from flask import jsonify, request, make_response
-from models import db
-from models import User, StudySesh
+from models import db, User, StudySesh
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -38,7 +37,7 @@ def configure_routes(app):
 
     # get all current study sessions on a specific floor
     @app.route('/currentFloorSessions', methods=['GET'])
-    def currentSessions():
+    def currentFloorSessions():
         data = request.get_json()
         sesh = StudySesh.query.filter_by(floor=data['floor']).first()
         if(sesh):
@@ -50,7 +49,7 @@ def configure_routes(app):
 
     # get all current study sessions by course code
     @app.route('/currentCourseSessions', methods=['GET'])
-    def currentSessions():
+    def currentCourseSessions():
         data = request.get_json()
         sesh = StudySesh.query.filter_by(course=data['course']).first()
         if(sesh):
@@ -106,19 +105,3 @@ def configure_routes(app):
             db.session.commit()
             return make_response(jsonify({'message': "You've left the session! Was it hard work or hardly working?"}, 201))
         return(make_response(jsonify({'message': 'Session or user not found :('})), 500)
-
-
-    """
-    @app.route('/addCourse', methods=['PUT'])
-    def addCourse(user_id):
-        user = User.query.filter_by(id=user_id).first()
-        if(user):
-            data = request.get_json()
-            if(Course.query.filter_by(course_code = data['course_code']).first()):
-                user.schedule.append(data['course_id'])
-                db.session.commit()
-                return make_response(jsonify({'message': 'course sucessfully added'}), 201)
-            return make_response(jsonify({'message': 'course not found'}), 201)
-        else:
-            return make_response(jsonify({'message': 'user not found'}), 201)
-    """
