@@ -2,3 +2,4 @@ flask
 sqlalchemy
 Flask-SQLAlchemy
 Flask-CORS
+pytz
