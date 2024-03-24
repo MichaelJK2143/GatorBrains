@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 export const Title = () => {
   const GatorTitle = {
@@ -65,6 +65,31 @@ export const MapPlaceholder = () => {
   const [xRatio, setXRatio] = useState(null);
   const [yRatio, setYRatio] = useState(null);
 
+  //testbackend starts
+  const [backendData, setBackendData] = useState(null); // State to store backend data
+
+  useEffect(() => {
+    // Fetch data from the backend
+    fetchBackendData();
+  }, []); // Empty dependency array to run the effect only once
+
+  const fetchBackendData = async () => {
+    try {
+      // Perform fetch request to backend API
+      const response = await fetch('http://localhost:3001');
+      if (!response.ok) {
+        throw new Error('Failed to fetch data from the backend');
+      }
+      // Parse the JSON response
+      const data = await response.json();
+      // Update the state with the fetched data
+      setBackendData(data);
+    } catch (error) {
+      console.error('Error fetching data from the backend:', error);
+    }
+  };
+//testbackend ends
+
   const handleMouseMove = (event) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -85,8 +110,8 @@ export const MapPlaceholder = () => {
     const fromTopBorder=mousePosition.y-borderCoordinates.top
     const xRatio=fromLeftBorder/xDif
     const yRatio=fromTopBorder/yDif
-    if(xRatio>=0.95 || xRatio <=0.05) return -1
-    if(yRatio>=0.95 || yRatio <=0.05) return -1
+    if(xRatio>=1 || xRatio <=0) return -1
+    if(yRatio>=1 || yRatio <=0) return -1
 
     setXRatio(xRatio);
     setYRatio(yRatio);
@@ -106,8 +131,10 @@ export const MapPlaceholder = () => {
   }
 
   return (
-    <div style={MapBorder} onMouseMove={handleMouseMove} onClick={handleClick}>
-      <img src="https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png" style={{ maxWidth: '90%', maxHeight: '90%', margin: 'auto', 'margin-top': '7%' }}></img>
+    <div style={MapBorder} onClick={handleClick}>
+      <img src="https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png"
+        style={{ maxWidth: '90%', maxHeight: '90%', margin: 'auto', 'margin-top': '7%' }} onMouseMove={handleMouseMove} alt='marston-map'></img>
+      <p>Backend Data: {backendData}</p>
       <p>Border Top: {borderCoordinates?.top}</p>
       <p>Border Right: {borderCoordinates?.right}</p>
       <p>Border Bottom: {borderCoordinates?.bottom}</p>
@@ -117,5 +144,22 @@ export const MapPlaceholder = () => {
       <p>ratio X: {xRatio}</p>
       <p>ratio Y: {yRatio}</p>
     </div>
+  )
+}
+
+
+export const displaydot = () =>{
+  //returnData= data from backend
+  return (
+  <div style={Userlist}>
+    <h2 style ={UserTitle}>Active User</h2>
+    <ul>
+      <li style={UserName}>User0</li>
+      <li style={UserName}>User2</li>
+      <li style={UserName}>User3</li>
+      <li style={UserName}>User4</li>
+      <li style={UserName}>User5</li>
+    </ul>
+  </div>
   )
 }
