@@ -12,7 +12,6 @@ class Course(db.Model):
      course_code = db.Column(db.String(8))
      professor = db.Column(db.String(40))
 
-     
      def __repr___(self):
           return '<course %r>' % self.course_code
 
@@ -24,6 +23,8 @@ class StudySesh(db.Model):
      members = db.Column(db.Integer)
      users = db.relationship('User', backref='study_sesh', lazy=True)
      floor = db.Column(db.Integer)
+     x = db.Column(db.Integer)
+     y = db.Column(db.Integer)
 
      def __init__(self, course, x, y, floor, members=1):
           self.course = course
@@ -35,6 +36,7 @@ class StudySesh(db.Model):
      def __repr__(self):
           return '<id %r>' % self.id
      
+
 class User(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      name = db.Column(db.String(80))
@@ -43,6 +45,5 @@ class User(db.Model):
      email = db.Column(db.String(80)) # figure this out eventually
      study_sesh_id = db.Column(db.Integer, db.ForeignKey('study_sesh.id'), nullable=True)
      
-
      def __repr__(self):
           return '<User %r>' % self.id

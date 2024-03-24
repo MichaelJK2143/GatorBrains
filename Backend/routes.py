@@ -43,7 +43,6 @@ def configure_routes(app):
 
 
     # make a new sesh
-    # do we need to ensure that user_id is valid here?
     @app.route('/createNewStudySession', methods=['POST'])
     def createNewStudySesh():
         try:
