@@ -1,11 +1,13 @@
 import "@/css/output.css"
 import "@/css/colors.json"
 
-import { Title, User, MapPlaceholder, redDot} from "@/components/map-components/list"
+import { User } from "@/components/map-components/list"
 import { LinkBar } from "@/components/common/link-bar"
 
 import { TextSection } from "@/components/common/text-sections"
 import { MainDivStyle } from "@/css/common"
+
+import { MapPlaceholder } from "@/components/map-components/map"
 
 export default function JoeTesting() {
     return (
