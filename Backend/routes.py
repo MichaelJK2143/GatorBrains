@@ -20,7 +20,7 @@ def configure_routes(app):
     def createAccount():
         try:
             data = request.get_json()
-            new_user = User(name=data['name'], username=data['username'], password=data['password'], emaiil=data['email'])
+            new_user = User(name=data['name'], username=data['username'], password=data['password'], email=data['email'])
             db.session.add(new_user)
             db.session.commit()
             return make_response(jsonify({'message': 'New user created! Time to get on the grindddddd'}), 201)
