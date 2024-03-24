@@ -75,11 +75,6 @@ export const MapPlaceholder = () => {
               console.log("yRatio:", session.y);
               // Add more properties as needed
 
-              const xDif=borderCoordinates.right-borderCoordinates.left
-              const yDif=borderCoordinates.bottom-borderCoordinates.top
-              const xcoord=xDif*session.x
-              const ycoord=yDif*session.y
-
             });
           } else {
             console.error("Sessions array not found in response data.");
