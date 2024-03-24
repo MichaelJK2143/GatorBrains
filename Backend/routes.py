@@ -1,6 +1,7 @@
 from flask import jsonify, request, make_response
 from models import db, User, StudySesh
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 
 def configure_routes(app):
@@ -16,8 +17,9 @@ def configure_routes(app):
     # making an account
     @app.route('/createAccount', methods=['POST'])
     def createAccount():
+
         try:
-            data = request.get_json()
+            data = json.loads(request.data)
             new_user = User(username=data['username'], password=data['password'])
             db.session.add(new_user)
             db.session.commit()
@@ -41,7 +43,7 @@ def configure_routes(app):
     # get all current study sessions on a specific floor
     @app.route('/currentFloorSessions', methods=['GET'])
     def currentFloorSessions():
-        data = request.get_json()
+        data = json.loads(request.data)
         sesh = StudySesh.query.filter_by(floor=data['floor']).first()
         if(sesh):
             sessions = [{'Course': session.course, 'Started': session.start_time.strftime("%H:%M:%S"), 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(floor=data['floor']).all()]
@@ -53,7 +55,7 @@ def configure_routes(app):
     # get all current study sessions by course code
     @app.route('/currentCourseSessions', methods=['GET'])
     def currentCourseSessions():
-        data = request.get_json()
+        data = json.loads(request.data)
         sesh = StudySesh.query.filter_by(course=data['course']).first()
         if(sesh):
             sessions = [{'Course': session.course, 'Started': session.start_time.strftime("%H:%M:%S"), 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(course=data['course']).all()]
@@ -66,7 +68,7 @@ def configure_routes(app):
     @app.route('/createNewStudySession', methods=['POST'])
     def createNewStudySesh():
         try:
-            data = request.get_json()
+            data = json.loads(request.data)
             user = User.query.filter_by(id=data['user_id']).first()
             new_sesh = StudySesh(course=data['course'], x=data['x'], y=data['y'], floor=data['floor'])
             if(user and new_sesh):
@@ -82,7 +84,7 @@ def configure_routes(app):
     # joining an existing session
     @app.route('/joinSession', methods=['PUT'])
     def joinSession():
-        data = request.get_json()
+        data = json.loads(request.data)
         sesh = StudySesh.query.filter_by(id=data['session_id']).first()
         user = User.query.filter_by(id=data['user_id']).first()
         if(sesh and user):
@@ -99,7 +101,7 @@ def configure_routes(app):
     # leave the session. deletes if no members in session anymore
     @app.route('/leaveSession', methods=['GET'])
     def leaveSession():
-        data = request.get_json()
+        data = json.loads(request.data)
         sesh = StudySesh.query.filter_by(id=data['session_id']).first()
         user = User.query.filter_by(id=data['user_id']).first()
         if(sesh and user):
