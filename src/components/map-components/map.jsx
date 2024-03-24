@@ -57,12 +57,32 @@ export const MapPlaceholder = () => {
     //get all the session and username on a floor
     //const Users=getter('http://localhost:3001/createNewStudySession')
 
-    const getAllData=()=>{
-      const AllData = getter('http://localhost:3001/1/currentFloorSessions')
-      if(AllData==undefined) console.log("undefined");
-      else console.log(AllData)
-
-    }
+    const getAllData = () => {
+      getter('http://localhost:3001/1/currentFloorSessions')
+        .then(responseData => {
+          // Check if Sessions array exists in the response data
+          if (responseData && responseData.Sessions && Array.isArray(responseData.Sessions)) {
+            // Access the Sessions array
+            const sessionsArray = responseData.Sessions;
+    
+            // Iterate over each session object
+            sessionsArray.forEach(session => {
+              // Access properties of each session object
+              console.log("Session ID:", session["Session ID"]);
+              console.log("Course:", session.Course);
+              console.log("Members:", session.Members);
+              // Add more properties as needed
+            });
+          } else {
+            console.error("Sessions array not found in response data.");
+          }
+        })
+        .catch(error => {
+          // Handle errors here
+          console.error("Error fetching data:", error);
+        });
+    };
+    
     //execute on page refresh
     useEffect(() => {
       getAllData();

@@ -43,19 +43,17 @@ export function poster(url, json) {
 
 
 export function getter(url) {
-  fetch(url)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log("Response data:", data);  // Print the response data
-  })
-  .catch(error => {
-    console.log("Response error:", data)
-  });
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error("Response error:", error);
+      throw error; // Rethrow the error to handle it in the calling code
+    });
 }
 
 export function getPoster(url, json) {

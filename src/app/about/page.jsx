@@ -1,5 +1,6 @@
 import { TextSection } from "@/components/common/text-sections";
 import { MainDivStyle } from "@/css/common";
+import { LinkBar } from "@/components/common/link-bar"
 
 export default function about() {
     return (
