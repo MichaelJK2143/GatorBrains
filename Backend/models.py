@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
+"""
 class Course(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      name = db.Column(db.String(80))
@@ -14,7 +14,7 @@ class Course(db.Model):
 
      def __repr___(self):
           return '<course %r>' % self.course_code
-
+"""
      
 class StudySesh(db.Model):
      id = db.Column(db.Integer, primary_key=True)
