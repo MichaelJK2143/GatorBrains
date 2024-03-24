@@ -97,8 +97,8 @@ export const MapPlaceholder = () => {
       <p>Border Right: {borderCoordinates?.right}</p>
       <p>Border Bottom: {borderCoordinates?.bottom}</p>
       <p>Border Left: {borderCoordinates?.left}</p>
-      <p>Mouse X: {mousePosition.x}</p>
-      <p>Mouse Y: {mousePosition.y}</p>
+      <p>Mouse X: {mousePosition?.x}</p>
+      <p>Mouse Y: {mousePosition?.y}</p>
     </div>
   )
 }

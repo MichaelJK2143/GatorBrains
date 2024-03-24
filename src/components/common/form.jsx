@@ -7,12 +7,19 @@ export function NameForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch("PUT IT HERE", {
-        method: "POST",
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })})
+    fetch("http://localhost:3001", {mode:"no-cors", method:"get"})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
         alert(`Username submitted: ${password} ${username}`);
     };
