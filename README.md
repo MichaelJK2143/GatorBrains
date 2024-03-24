@@ -2,9 +2,16 @@
 This website was created in order to connect students studying similar courses and facilitate collaborative study sessions while fostering a supportive learning community. By providing a platform for users to find peers studying the same subjects, our goal was to enhance study efficiency, encourage knowledge sharing, and promote academic success.
 With our platform, you'll be able to easily connect with peers and classmates studying in Marston to enhance both of your study sessions and improve your academic performance. Say goodbye to solo study sessions and hello to collaborative learning opportunities, tailored to your course needs.
 
-## Dependencies/Setup Instructions
-Tools we used: Docker, things in requirements, idk
-You need to have python installed. 
+## Dependencies
+Tools: Next.js, Docker, Flask, SQLAlchemy, NextUI, TailWindCSS, React
+You will need to have Python and JavaScript installed.
+But a decent majority of this will be automatically installed when the Requirements.txt is ran with the build.
+
+## Setup Instructions
+1. Download Docker and Node.js
+2. Run Docker build and Docker run in order for the Backend to run
+3. Run the command in the Frontend file 'npm run dev'
+4. If no Frontend page pops up, type in the URL 'localhost:3000'
 
 ## Usage 
 1. You’ll begin by creating a username and password. After that, you will see a layout of a Marston of your choosing.
@@ -22,6 +29,6 @@ This was everyone in the team's first hackathon, so we ran into a lot of problem
 But hopefully we'll be able to do work together in the future to improve it and launch it as an actual website for students to use.
 Here's a little rundown of what we'd change:
 - Resolve all the issues with our current implementation.
-- Finish developing the 'Active User' tab that will display all of the Users currently studying on a selected floor.
+- Finish developing the *Active User* tab that will display all of the Users currently studying on a selected floor.
 - Include Library West as an option.
 - Improve the UI/UX.
