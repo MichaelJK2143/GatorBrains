@@ -41,12 +41,11 @@ def configure_routes(app):
     
 
     # get all current study sessions on a specific floor
-    @app.route('/currentFloorSessions', methods=['GET'])
-    def currentFloorSessions():
-        data = json.loads(request.data)
-        sesh = StudySesh.query.filter_by(floor=data['floor']).first()
+    @app.route('/<int:flr>/currentFloorSessions', methods=['GET'])
+    def currentFloorSessions(flr):
+        sesh = StudySesh.query.filter_by(floor=flr).first()
         if(sesh):
-            sessions = [{'Course': session.course, 'Started': session.start_time.strftime("%H:%M:%S"), 'Members': session.members, 'Session ID': session.id} for session in StudySesh.query.filter_by(floor=data['floor']).all()]
+            sessions = [{'Course': session.course, 'Started': session.start_time.strftime("%H:%M:%S"), 'Members': session.members, 'Session ID': session.id, "x": session.x, "y": session.y} for session in StudySesh.query.filter_by(floor=flr).all()]
             return jsonify({'Sessions': sessions})
         else:
             return make_response(jsonify({'message': 'For some reason, there are no study sessions on this floor. Crazy.'}), 201)
