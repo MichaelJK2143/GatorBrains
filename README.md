@@ -1,6 +1,7 @@
 # GatorBrains
 ### Created by Team Brainiacs
 This website was created in order to connect students studying similar courses and facilitate collaborative study sessions while fostering a supportive learning community. By providing a platform for users to find peers studying the same subjects, our goal was to enhance study efficiency, encourage knowledge sharing, and promote academic success.
+
 With our platform, you'll be able to easily connect with peers and classmates studying in Marston to enhance both of your study sessions and improve your academic performance. Say goodbye to solo study sessions and hello to collaborative learning opportunities, tailored to your course needs.
 
 ## Dependencies
