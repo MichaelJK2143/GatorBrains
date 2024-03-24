@@ -99,7 +99,7 @@ export const MapPlaceholder = () => {
 
   //send coordinates to backend
   const handleClickSubmit =() => {
-    console.log("hi")
+    console.log(xRatio + " "+yRatio)
     fetch('http://localhost:3001/createNewStudySession', {
 
             method: 'POST',
@@ -173,7 +173,7 @@ const redDot ={
       <p>ratio Y: {yRatio}</p>
       <div style={DinoMode}>
         <div style={redDot}></div>
-        <button style={{'backgroundColor':'lightgreen', 'border' : '2px solid black', 'border-radius':'8px', 'padding':'0.3em'}} onclick={handleClickSubmit}>Submit</button>
+        <button style={{'backgroundColor':'lightgreen', 'border' : '2px solid black', 'border-radius':'8px', 'padding':'0.3em'}} onClick={handleClickSubmit}>Submit</button>
       </div>
     </div>
   )
