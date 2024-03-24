@@ -57,12 +57,17 @@ export const MapPlaceholder = () => {
     //get all the session and username on a floor
     //const Users=getter('http://localhost:3001/createNewStudySession')
 
-    const getAllData=()=>{
-      const AllData = getter('http://localhost:3001/1/currentFloorSessions')
-      if(AllData==undefined) console.log("undefined");
-      else console.log(AllData)
-
+    const getAllData = () => {
+      const something = getter('http://localhost:3001/1/currentFloorSessions');
+      const sessionArray = something.Sessions;
+      //console.log(sessionArray.length);
+      //sessionsArray.forEach(session => {
+        // Access properties of each session object
+      //  console.log(session.propertyName);
+    //});
     }
+
+    
     //execute on page refresh
     useEffect(() => {
       getAllData();

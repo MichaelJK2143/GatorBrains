@@ -19,13 +19,25 @@ export function NameForm({ image, floor }) {
         "password" : password
     }
 
-    function handleClick() {
-        // Call the poster function with the URL and JSON data
-        getData('your-post-url', { key: 'value' }).then(
-            function(value) {myDisplayer(value);},
-            function(error) {myDisplayer(error);}
-          );
+    
+  const handleClick = async () => {
+    try {
+      const response = await fetch('https://localhost:3001/createAccount', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // Add any other headers if needed
+        },
+        body: JSON.stringify(json) // Replace 'key' and 'value' with your actual data
+      });
+      
+      const responseData = await response.json();
+      setData(responseData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
+  };
+
 
 
     return (
@@ -47,9 +59,11 @@ export function NameForm({ image, floor }) {
                     onChange={(e) => setPassword(e.target.value)}
                     style={{ margin: '5px', padding: '8px', width: '200px', color: "#000000"}}
                 />
+                <Link href={link}>
                     <button onClick={handleClick} type="submit" className= "rounded-lg" style={{ margin: '5px', padding: '8px', width: '200px', backgroundColor: 'skyblue', border: 'none', borderRadius: '5px' }}>
                         Submit
                     </button>
+                </Link>
             </form>
         </div>  
     );

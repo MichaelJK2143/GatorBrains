@@ -26,7 +26,7 @@ export default function JoeTesting() {
             </header>
             <main>
                 <div style={MainDivStyle}>
-                    <TextSection>
+                    <TextSection heading="Gator Finder">
                         <p>Find your study buddy!</p>
                     </TextSection>
                 </div>
