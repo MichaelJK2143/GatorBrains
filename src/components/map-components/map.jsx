@@ -1,14 +1,16 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { MapBorder, redDot } from "./styles";
+import { poster, getter,getPoster } from '../common/fetcher';
 
 export const MapPlaceholder = () => {
     const [borderCoordinates, setBorderCoordinates] = useState(null);
     const [mousePosition, setMousePosition] = useState({ x: null, y: null });
     const [xRatio, setXRatio] = useState(null);
     const [yRatio, setYRatio] = useState(null);
-  
+
+    const [coursename, setCoursename] = useState('');
     const [ pin, setPin ] = useState({ x:null, y:null });
   
     const handleMouseMove = (event) => {
@@ -42,18 +44,30 @@ export const MapPlaceholder = () => {
   
     //send coordinates to backend
     const handleClickSubmit =() => {
-      console.log9(xRatio+" "+yRatio)
-
+      console.log(xRatio+" " +yRatio)
       const json = {
-        "xRatio": 'xRatio',
-        "yRatio": 'yRatio',
+        "x": xRatio,
+        "y": yRatio,
+        "user_id" : 1,
+        "course": coursename,
+        "floor": 1
       }  
-
       poster('http://localhost:3001/createNewStudySession', json)
-      
     }
-      
+    //get all the session and username on a floor
+    //const Users=getter('http://localhost:3001/createNewStudySession')
 
+    const getAllData=()=>{
+      const AllData = getter('http://localhost:3001/1/currentFloorSessions')
+      if(AllData==undefined) console.log("undefined");
+      else console.log(AllData)
+
+    }
+    //execute on page refresh
+    useEffect(() => {
+      getAllData();
+      console.log('Page refreshed!');
+    }, []);
  
     const DinoMode = {
       position:"absolute",
@@ -76,7 +90,15 @@ export const MapPlaceholder = () => {
         <p>ratio Y: {yRatio}</p>
         <div style={DinoMode}>
           <div style={redDot}></div>
-          <button style={{'backgroundColor':'lightgreen', 'border' : '2px solid black', 'border-radius':'8px', 'padding':'0.3em'}} onclick={handleClickSubmit}>Submit</button>
+          <input
+                    type="text"
+                    placeholder="Course"
+                    value={coursename}
+                    onChange={(e) => setCoursename(e.target.value)}
+                    style={{ margin: '3px', padding: '4px', width: '100px', color: "#000000"}}
+                />
+          <button style={{'backgroundColor':'lightgreen', 'border' : '2px solid black', 'border-radius':'8px', 'padding':'0.3em'}}
+            onClick={handleClickSubmit}>Submit</button>
         </div>
       </div>
     )

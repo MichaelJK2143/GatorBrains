@@ -1,3 +1,5 @@
+"use client"
+
 import "@/css/output.css"
 import "@/css/colors.json"
 
@@ -8,8 +10,15 @@ import { TextSection } from "@/components/common/text-sections"
 import { MainDivStyle } from "@/css/common"
 
 import { MapPlaceholder } from "@/components/map-components/map"
+import { useSearchParams } from 'next/navigation'
 
 export default function JoeTesting() {
+    const searchParams = useSearchParams()
+    console.log(searchParams.get('floor'))
+    console.log(searchParams.get('image'))
+    console.log(searchParams.get('userID'))
+
+
     return (
         <div>
             <header>

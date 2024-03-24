@@ -28,35 +28,30 @@ const Tstyle= {
     maxHeight: "100%"
   }
 
-export function ImageWithOptions() {
-  return (
-    <ImageContainer> 
-        <img src="https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png" style={{ flexShrink:"0", maxWidth: '100%', maxHeight: '100%', marginTop: '10px' }}></img>
-        <SelectionMenu></SelectionMenu>
-    </ImageContainer>
-
-      
-  );
-}
-
 
 export const WORK = () => {
     const [image, setImage] = useState('https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png');
+    const [floor, setFloor] = useState("1");
+
+    function setQuery(img, flr) {
+        setImage(img);
+        setFloor(flr);
+    }
 
     return (
             <div>
                 <div style={test}>
                     <Card> 
-                        <NameForm/>
+                        <NameForm image={image} floor={floor}/>
                         <img src={image} style={{ objectFit:"contain", maxWidth: '100%', maxHeight: '100%', marginTop: '10px' }}/>
                     </Card>
                 </div>
                 <div style={test}>
-                <button style={ButtonStyle} onClick={() => setImage('https://marston.uflib.ufl.edu/files/2023/06/5th-Floor-Map.png')}>5th Floor</button>
-                <button style={ButtonStyle} onClick={() => setImage('https://marston.uflib.ufl.edu/files/2023/06/4th-Floor-Map-1.png')}>4th Floor</button>
-                <button style={ButtonStyle} onClick={() => setImage('https://marston.uflib.ufl.edu/files/2023/06/3rd-Floor-Map.png')}>3rd Floor</button>
-                <button style={ButtonStyle} onClick={() => setImage('https://marston.uflib.ufl.edu/files/2023/06/2nd-Floor-Map.png')}>2nd Floor</button>
-                <button style={ButtonStyle} onClick={() => setImage('https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png')}>1st Floor</button>
+                <button style={ButtonStyle} onClick={() => setQuery('https://marston.uflib.ufl.edu/files/2023/06/5th-Floor-Map.png', "5")}>5th Floor</button>
+                <button style={ButtonStyle} onClick={() => setQuery('https://marston.uflib.ufl.edu/files/2023/06/4th-Floor-Map-1.png', "4")}>4th Floor</button>
+                <button style={ButtonStyle} onClick={() => setQuery('https://marston.uflib.ufl.edu/files/2023/06/3rd-Floor-Map.png', "3")}>3rd Floor</button>
+                <button style={ButtonStyle} onClick={() => setQuery('https://marston.uflib.ufl.edu/files/2023/06/2nd-Floor-Map.png', "2")}>2nd Floor</button>
+                <button style={ButtonStyle} onClick={() => setQuery('https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png', "1")}>1st Floor</button>
                 </div>
             </div>
     )

@@ -1,54 +1,36 @@
-import React, { useState } from 'react';
+"use client"
 
-export function NameForm() {
+import React, { useState } from 'react';
+import { poster, getData } from './fetcher';
+import Link from 'next/link';
+
+export function NameForm({ image, floor }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [userID, setUserID] = useState('2');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const response ={
-            "usename": username,
-            "email": '4',
-            "password": password,
-            "name": 'f'
-        }
-        fetch('http://localhost:3001/createAccount', {
-           
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "username": username,
-                "email": '4',
-                "password": password,
-                "name": 'f'
-            })
+    const link = { 
+        "pathname": '/gatorfinder', 
+        "query": { "image":image, "floor":floor, "userID":userID }
+    }
 
-        })
-        .then(response => {
-          // Check if the response status is OK (200-299)
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          // Parse the response as JSON
-          return response.json();
-        })
-        .then(data => {
-          // Process the JSON data
-          console.log('Data received:', data);
-        })
-        .catch(error => {
-          // Handle errors
-          console.error('Error fetching data:', error);
-        });
+    const json = {
+        "username" : username,
+        "password" : password
+    }
 
-        alert(`Username submitted: ${password} ${username}`);
-    };
+    function handleClick() {
+        // Call the poster function with the URL and JSON data
+        getData('your-post-url', { key: 'value' }).then(
+            function(value) {myDisplayer(value);},
+            function(error) {myDisplayer(error);}
+          );
+    }
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flex:"1" }}>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <input
                     type="text"
                     placeholder="Username"
@@ -65,9 +47,9 @@ export function NameForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     style={{ margin: '5px', padding: '8px', width: '200px', color: "#000000"}}
                 />
-                <button type="submit" className= "rounded-lg" style={{ margin: '5px', padding: '8px', width: '200px', backgroundColor: 'skyblue', border: 'none', borderRadius: '5px' }}>
-                    Submit
-                </button>
+                    <button onClick={handleClick} type="submit" className= "rounded-lg" style={{ margin: '5px', padding: '8px', width: '200px', backgroundColor: 'skyblue', border: 'none', borderRadius: '5px' }}>
+                        Submit
+                    </button>
             </form>
         </div>  
     );
