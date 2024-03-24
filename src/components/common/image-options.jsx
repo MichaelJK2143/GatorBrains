@@ -3,7 +3,6 @@
 import React from 'react';
 import { Card } from './card';
 import { NameForm } from './form';
-import { Car } from 'lucide-react';
 import { useState } from 'react';
 
 const ImageContainer = ({ children }) => {

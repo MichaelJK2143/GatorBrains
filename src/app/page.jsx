@@ -6,10 +6,6 @@ import { TextSection } from "@/components/common/text-sections"
 import { LinkBar } from "@/components/common/link-bar"
 import { MainDivStyle } from "@/css/common"
 
-import { Card } from "@/components/common/card"
-import { NameForm } from "@/components/common/form"
-import { useState } from "react"
-import {ImageWithOptions } from "@/components/common/image-options"
 import { WORK } from "@/components/common/image-options"
 
 

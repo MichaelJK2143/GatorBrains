@@ -1,8 +1,11 @@
 import "@/css/output.css"
 import "@/css/colors.json"
 
-import { Title, MapPlaceholder, User} from "@/components/map-page-components/list"
+import { Title, User, MapPlaceholder, redDot} from "@/components/map-components/list"
 import { LinkBar } from "@/components/common/link-bar"
+
+import { TextSection } from "@/components/common/text-sections"
+import { MainDivStyle } from "@/css/common"
 
 export default function JoeTesting() {
     return (
@@ -11,8 +14,10 @@ export default function JoeTesting() {
                 <LinkBar></LinkBar>
             </header>
             <main>
-                <div style={TitleStyle}>
-                    <Title/>
+                <div style={MainDivStyle}>
+                    <TextSection>
+                        <p>Find your study buddy!</p>
+                    </TextSection>
                 </div>
                 <div style ={containerMapUser}>
                     <div style = {UserDiv}>
@@ -28,6 +33,7 @@ export default function JoeTesting() {
 }
 const TitleStyle ={
     'text-align':'center',
+    justifyContent:"center",
     'margin-top': '80px'
 }
 const containerMapUser ={
@@ -37,11 +43,11 @@ const containerMapUser ={
     'margin-right':'10px',
 }
 const UserDiv ={
-    'margin-left':'160px',
+    'margin-left':'90px',
     'width':'800px'
   }
 const MapDiv ={
-    'margin-right':'-30px',
+    'margin-right':'90px',
     'width':'800px'
 }
   
