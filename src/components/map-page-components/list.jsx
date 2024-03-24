@@ -62,6 +62,8 @@ export const User= () =>{
 export const MapPlaceholder = () => {
   const [borderCoordinates, setBorderCoordinates] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
+  const [xRatio, setXRatio] = useState(null);
+  const [yRatio, setYRatio] = useState(null);
 
   const handleMouseMove = (event) => {
     const x = event.clientX;
@@ -76,6 +78,17 @@ export const MapPlaceholder = () => {
     };
     setBorderCoordinates(coordinates);
   };
+  const handleClick =() => {
+    const xDif=borderCoordinates.right-borderCoordinates.left
+    const yDif=borderCoordinates.bottom-borderCoordinates.top
+    const fromLeftBorder=mousePosition.x-borderCoordinates.left
+    const fromTopBorder=mousePosition.y-borderCoordinates.top
+    const xRatio=fromLeftBorder/xDif
+    const yRatio=fromTopBorder/yDif
+
+    setXRatio(xRatio);
+    setYRatio(yRatio);
+  }
 
   const h1_style ={
     'fontSize':'25px',
@@ -91,7 +104,7 @@ export const MapPlaceholder = () => {
   }
 
   return (
-    <div style={MapBorder} onMouseMove={handleMouseMove}>
+    <div style={MapBorder} onMouseMove={handleMouseMove} onClick={handleClick}>
       <img src="https://marston.uflib.ufl.edu/files/2023/06/1st-Floor-Map.png" style={{ maxWidth: '90%', maxHeight: '90%', margin: 'auto', 'margin-top': '7%' }}></img>
       <p>Border Top: {borderCoordinates?.top}</p>
       <p>Border Right: {borderCoordinates?.right}</p>
@@ -99,6 +112,8 @@ export const MapPlaceholder = () => {
       <p>Border Left: {borderCoordinates?.left}</p>
       <p>Mouse X: {mousePosition.x}</p>
       <p>Mouse Y: {mousePosition.y}</p>
+      <p>ratio X: {xRatio}</p>
+      <p>ratio Y: {yRatio}</p>
     </div>
   )
 }
