@@ -6,20 +6,42 @@ export function NameForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-    fetch("http://localhost:3001", {mode:"no-cors", method:"get"})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        const response ={
+            "usename": username,
+            "email": '4',
+            "password": password,
+            "name": 'f'
         }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+        fetch('http://localhost:3001/createAccount', {
+           
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "username": username,
+                "email": '4',
+                "password": password,
+                "name": 'f'
+            })
+
+        })
+        .then(response => {
+          // Check if the response status is OK (200-299)
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          // Parse the response as JSON
+          return response.json();
+        })
+        .then(data => {
+          // Process the JSON data
+          console.log('Data received:', data);
+        })
+        .catch(error => {
+          // Handle errors
+          console.error('Error fetching data:', error);
+        });
 
         alert(`Username submitted: ${password} ${username}`);
     };
