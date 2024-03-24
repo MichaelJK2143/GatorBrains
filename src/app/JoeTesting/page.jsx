@@ -37,11 +37,11 @@ const containerMapUser ={
     'margin-right':'10px',
 }
 const UserDiv ={
-    'margin-left':'160px',
+    'margin-left':'90px',
     'width':'800px'
   }
 const MapDiv ={
-    'margin-right':'-30px',
+    'margin-right':'90px',
     'width':'800px'
 }
   

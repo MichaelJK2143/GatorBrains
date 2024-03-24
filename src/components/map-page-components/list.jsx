@@ -27,7 +27,7 @@ export const User= () =>{
     'border' : '3px solid black',
     'border-radius' :'30px',
     'background-color':"lightgray",
-    'height':'600px'
+    'height':'580px'
   }
   const UserTitle ={
     'margin':'1em 0',
@@ -85,6 +85,8 @@ export const MapPlaceholder = () => {
     const fromTopBorder=mousePosition.y-borderCoordinates.top
     const xRatio=fromLeftBorder/xDif
     const yRatio=fromTopBorder/yDif
+    if(xRatio>=0.95 || xRatio <=0.05) return -1
+    if(yRatio>=0.95 || yRatio <=0.05) return -1
 
     setXRatio(xRatio);
     setYRatio(yRatio);
@@ -99,7 +101,7 @@ export const MapPlaceholder = () => {
     'border-radius' :'30px',
     'width':'90%',
     'background-color':'lightgrey',
-    'height':'600px'
+    'height':'580px'
 
   }
 
