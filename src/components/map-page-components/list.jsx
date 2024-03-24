@@ -27,7 +27,7 @@ export const User= () =>{
     'border' : '3px solid black',
     'border-radius' :'30px',
     'background-color':"lightgray",
-    'height':'700px'
+    'height':'600px'
   }
   const UserTitle ={
     'margin':'1em 0',
@@ -86,7 +86,7 @@ export const MapPlaceholder = () => {
     'border-radius' :'30px',
     'width':'90%',
     'background-color':'lightgrey',
-    'height':'700px'
+    'height':'600px'
 
   }
 
