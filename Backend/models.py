@@ -21,12 +21,15 @@ class StudySesh(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      start_time = db.Column(db.DateTime, default=datetime.now()) # time it was created
      course = db.Column(db.String(8))
+     members = db.Column(db.Integer)
+     users = db.relationship('User', backref='study_sesh', lazy=True)
 
-     def __init__(self, duration, course, x, y, floor):
+     def __init__(self, course, x, y, floor, members=1):
           self.course = course
           self.x = x
           self.y = y
           self.floor = floor
+          self.members = members
 
      def __repr__(self):
           return '<id %r>' % self.id
