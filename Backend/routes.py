@@ -50,7 +50,7 @@ def configure_routes(app):
 
     # get all current study sessions by course code
     @app.route('/currentCourseSessions', methods=['GET'])
-    def currentSessions():
+    def currentSessionsFloor():
         data = request.get_json()
         sesh = StudySesh.query.filter_by(course=data['course']).first()
         if(sesh):
@@ -84,8 +84,11 @@ def configure_routes(app):
         sesh = StudySesh.query.filter_by(id=data['session_id']).first()
         user = User.query.filter_by(id=data['user_id']).first()
         if(sesh and user):
-            sesh.members += 1
-            sesh.users.append(user.id)
+            for u in sesh.users:
+                if(User.query.filter_by(id = u.id)).first():
+                    return make_response(jsonify({'message': "Oops! You're already in this session!"}, 201))
+            sesh.members = sesh.members + 1
+            sesh.users.append(user)
             db.session.commit()
             return make_response(jsonify({'message': "You've joined the session! Time to get on that grind"}, 201))
         return(make_response(jsonify({'message': 'Session or user not found :('})), 500)
