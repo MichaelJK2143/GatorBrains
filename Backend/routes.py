@@ -84,7 +84,7 @@ def configure_routes(app):
         user = User.query.filter_by(id=data['user_id']).first()
         if(sesh and user):
             for u in sesh.users:
-                if(User.query.filter_by(id = u.id)).first():
+                if u.id == user.id:
                     return make_response(jsonify({'message': "Oops! You're already in this session!"}, 201))
             sesh.members = sesh.members + 1
             sesh.users.append(user)
