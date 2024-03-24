@@ -44,10 +44,8 @@ class StudySesh(db.Model):
 
 class User(db.Model):
      id = db.Column(db.Integer, primary_key=True)
-     name = db.Column(db.String(80))
      username = db.Column(db.String(80))
      password = db.Column(db.String(80))
-     email = db.Column(db.String(80)) # figure this out eventually
      study_sesh_id = db.Column(db.Integer, db.ForeignKey('study_sesh.id'), nullable=True)
      
      def __repr__(self):
