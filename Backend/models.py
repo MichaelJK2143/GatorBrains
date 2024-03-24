@@ -21,7 +21,7 @@ class StudySesh(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      start_time = db.Column(db.DateTime, default=datetime.now()) # time it was created
      course = db.Column(db.String(8))
-     members = db.Column(db.Integer, default = 0)
+     members = db.Column(db.Integer)
      users = db.relationship('User', backref='study_sesh', lazy=True)
      floor = db.Column(db.Integer)
 

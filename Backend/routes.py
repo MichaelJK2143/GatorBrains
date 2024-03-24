@@ -45,11 +45,12 @@ def configure_routes(app):
     # make a new sesh
     # do we need to ensure that user_id is valid here?
     @app.route('/createNewStudySession', methods=['POST'])
-    def createNewStudySesh(user_id):
+    def createNewStudySesh():
         try:
             data = request.get_json()
+            user = User.query.filter_by(id=data['user_id']).first()
             new_sesh = StudySesh(course=data['course'], x=data['x'], y=data['y'], floor=data['floor'])
-            new_sesh.users.append(user_id)
+            new_sesh.users.append(user)
             db.session.add(new_sesh)
             db.session.commit()
             return make_response(jsonify({'message': 'Study session created! Good luck soldier'}), 201)
@@ -106,43 +107,4 @@ def configure_routes(app):
             return make_response(jsonify({'message': 'course not found'}), 201)
         return make_response(jsonify({'message': 'user not found'}), 201)
         return make_response(jsonify({'message': 'error adding course'}), 500)
-    """
-<<<<<<< Updated upstream
-
-    # should we add smthg, like plan/schedule a study sesh?
-
-    # leave session route
-        # share pointer? basically delete itself once members == 0 
-    
-    # again, <int:user_id> is correct?
-    # also, should it be GET
-    
-    """
-    @app.route('/<int:user_id>/leaveSession', methods=['GET'])
-    def leaveSession(user_id, session_id):
-        sesh = StudySesh.query.filter_by(id=session_id).first()
-        user = User.query.filter_by(id=user_id).first()
-        if(sesh and user):
-            data=request.get_json()
-            sesh.members -= 1
-            sesh.users.remove(user.id)
-            if(sesh.members == 0):
-
-            return make_response(jsonify({'message': "You've left the session! Was it hard work or hardly working?"}, 201))
-        return(make_response(jsonify({'message': 'Session or user not found :('})))
-    """
-
-    # make a new sesh
-    @app.route('/createNewStudySession', methods=['POST'])
-    def createNewStudySesh():
-        try:
-            data = request.get_json()
-            new_sesh = StudySesh(course=data['course'], x=data['x'], y=data['y'], floor=data['floor'])
-            db.session.add(new_sesh)
-            db.session.commit()
-            return make_response(jsonify({'message': 'Study session created! Good luck soldier'}), 201)
-        except:
-            return make_response(jsonify({'message': 'error creating study session'}), 500)
-=======
->>>>>>> Stashed changes
-    
+    """    
