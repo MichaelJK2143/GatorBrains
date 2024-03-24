@@ -34,18 +34,33 @@ def configure_routes(app):
         courses = [{"Name": course.name, "Course Code": course.course_code, "Professor": course.professor} for course in Course.query.all()]
         return jsonify({"courses": courses})
     
+
     # get all current study sessions
     @app.route('/currentSessions', methods=['GET'])
     def currentSessions():
         sessions = [{'Course': session.course, 'Started': session.start_time, 'Members': session.members, 'Floor': session.floor} for session in StudySesh.query.all()]
         return jsonify({'Sessions': sessions})
 
-    
+
+    # make a new sesh
+    # do we need to ensure that user_id is valid here?
+    @app.route('/createNewStudySession', methods=['POST'])
+    def createNewStudySesh(user_id):
+        try:
+            data = request.get_json()
+            new_sesh = StudySesh(course=data['course'], x=data['x'], y=data['y'], floor=data['floor'])
+            new_sesh.users.append(user_id)
+            db.session.add(new_sesh)
+            db.session.commit()
+            return make_response(jsonify({'message': 'Study session created! Good luck soldier'}), 201)
+        except:
+            return make_response(jsonify({'message': 'error creating study session'}), 500)
+
+
     # joining an existing session
     # make sure data requested is everything abt study session (mainly the id)
-    # do i need to change the <int:user_id> thing? to add the session id too
-
-    @app.route('/<int:user_id>/joinSession', methods=['PUT'])
+    # do we need to confirm the user_id exists here?
+    @app.route('/joinSession', methods=['PUT'])
     def joinSession(user_id, session_id):
         sesh = StudySesh.query.filter_by(id=session_id).first()
         user = User.query.filter_by(id=user_id).first()
@@ -53,11 +68,33 @@ def configure_routes(app):
             data=request.get_json()
             sesh.members += 1
             sesh.users.append(user.id)
+            db.session.commit()
             return make_response(jsonify({'message': "You've joined the session! Time to get on that grind"}, 201))
         return(make_response(jsonify({'message': 'Session not found :('})))
 
+
+    # should we add smthg, like plan/schedule a study sesh?
+
+    # leave the session you're in. deletes if no members in session anymore
+    # also, should it be GET
+    @app.route('/leaveSession', methods=['GET'])
+    def leaveSession(user_id, session_id):
+        sesh = StudySesh.query.filter_by(id=session_id).first()
+        user = User.query.filter_by(id=user_id).first()
+        if(sesh and user):
+            data=request.get_json()
+            sesh.members -= 1
+            sesh.users.remove(user.id)
+            if(sesh.members == 0):
+                db.session.delete(sesh)
+            db.session.commit()
+            return make_response(jsonify({'message': "You've left the session! Was it hard work or hardly working?"}, 201))
+        return(make_response(jsonify({'message': 'Session or user not found :('})))
+
+
+
     """
-    @app.route('/<int:user_id>/addCourse', methods=['PUT'])
+    @app.route('/addCourse', methods=['PUT'])
     def addCourse(user_id):
         user = User.query.filter_by(id=user_id).first()
         if(user):
@@ -70,6 +107,7 @@ def configure_routes(app):
         return make_response(jsonify({'message': 'user not found'}), 201)
         return make_response(jsonify({'message': 'error adding course'}), 500)
     """
+<<<<<<< Updated upstream
 
     # should we add smthg, like plan/schedule a study sesh?
 
@@ -105,4 +143,6 @@ def configure_routes(app):
             return make_response(jsonify({'message': 'Study session created! Good luck soldier'}), 201)
         except:
             return make_response(jsonify({'message': 'error creating study session'}), 500)
+=======
+>>>>>>> Stashed changes
     
