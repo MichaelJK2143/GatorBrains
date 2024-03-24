@@ -23,6 +23,7 @@ class StudySesh(db.Model):
      course = db.Column(db.String(8))
      members = db.Column(db.Integer, default = 0)
      users = db.relationship('User', backref='study_sesh', lazy=True)
+     floor = db.Column(db.Integer)
 
      def __init__(self, course, x, y, floor, members=1):
           self.course = course
